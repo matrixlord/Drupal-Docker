@@ -1,0 +1,3 @@
+#* * * * * serveruser /usr/bin/env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin COLUMNS=72 /home/serveruser/.composer/vendor/bin/drush --root=/home/serveruser/vhosts/hrmeta --uri=http://www.hrmeta.local --quiet cron-run
+#* * * * * root wget -O - -q -t 1 --no-check-certificate http://meta.humanfactor.local/cron.php?cron_key=tQDMN2DQAAQkNha7gYNuosGrKFbyEGs2DprNKRF0HKY
+

@@ -1,0 +1,71 @@
+version: '2'
+
+services:
+  server:
+    build: ./server
+    ports:
+      - 80:80
+      - 9000:9000
+      - "2200:22"
+    volumes:
+      - ./data/www:/home/serveruser/vhosts
+      - ./data/app_config:/app_config
+      - ./data/logs/server/apache2:/var/log/apache2
+      - ./data/logs/server/supervisor:/var/log/supervisor
+    links:
+      - mysql
+    depends_on:
+      - mysql
+    extra_hosts:
+      - "drupal7.local:127.0.0.1"
+      - "drupal8.local:127.0.0.1"
+    networks:
+      app_net:
+        ipv4_address: 10.100.101.11
+  mysql:
+    build: ./mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+      - ./data/logs/mysql:/var/log/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      app_net:
+        ipv4_address: 10.100.101.31
+  cron:
+    build: ./cron
+    volumes:
+      - ./data/app_config:/app_config
+    depends_on:
+      - server
+    extra_hosts:
+      - "drupal7.local:10.100.100.11"
+      - "drupal8.local:10.100.100.11"
+    networks:
+      app_net:
+        ipv4_address: 10.100.101.51
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8080:80
+    links:
+      - mysql
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: root
+      PHP_UPLOAD_MAX_FILESIZE: 67108864
+    networks:
+      app_net:
+        ipv4_address: 10.100.101.61
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 10.100.101.0/24
+        gateway: 10.100.101.1

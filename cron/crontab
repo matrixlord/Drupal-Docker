@@ -1,0 +1,2 @@
+# Main cron file. It runs all crons of all sites.
+* * * * * root /scripts/servercrons.sh
