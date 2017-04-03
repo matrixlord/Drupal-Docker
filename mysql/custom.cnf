@@ -32,3 +32,4 @@ innodb_fatal_semaphore_wait_threshold = 28800
 innodb_lock_wait_timeout 	= 28800
 
 log_error 			= /var/log/mysql/mysql_error.log
+#innodb_force_recovery=6

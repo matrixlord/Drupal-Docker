@@ -32,7 +32,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Key fingerprint = 430B DF5C 56E7 C94E 848E  E60C 1C4C BDCD CD2E FD2A
 # Percona MySQL Development Team <mysql-dev@percona.com>
 RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 177F4010FE56CA3336300305F1656F24C74CD1D8 \
-	&& apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 430BDF5C56E7C94E848EE60C1C4CBDCDCD2EFD2A
+	&& apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 4D1BB29D63D98E422B2113B19334A25F8507EFA5
 
 RUN echo "deb https://repo.percona.com/apt xenial main" > /etc/apt/sources.list.d/percona.list \
 	&& { \
@@ -42,7 +42,7 @@ RUN echo "deb https://repo.percona.com/apt xenial main" > /etc/apt/sources.list.
 	} > /etc/apt/preferences.d/percona
 
 ENV MARIADB_MAJOR 10.1
-ENV MARIADB_VERSION 10.1.17+maria-1~xenial
+ENV MARIADB_VERSION 10.1.22+maria-1~xenial
 
 RUN echo "deb http://ftp.cc.uoc.gr/mirrors/mariadb/repo/$MARIADB_MAJOR/ubuntu xenial main" > /etc/apt/sources.list.d/mariadb.list \
 	&& { \

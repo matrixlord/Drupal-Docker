@@ -2,7 +2,11 @@ version: '2'
 
 services:
   server:
-    build: ./server
+    build:
+      context: ./server
+      args:
+        UID: ${USER_ID}
+        GID: ${GROUP_ID}
     ports:
       - 80:80
       - 9000:9000
