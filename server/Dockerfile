@@ -70,6 +70,9 @@ RUN npm install -g gulp-cli babel-cli webpack
 # Restart apache.
 WORKDIR /root
 
+# Install symfony.
+RUN curl -LsS https://symfony.com/installer -o /usr/local/bin/symfony && chmod a+x /usr/local/bin/symfony
+
 # Setup ssh.
 RUN mkdir /var/run/sshd
 RUN echo 'root:root' | chpasswd
@@ -88,6 +91,7 @@ RUN mkdir -p vhosts
 RUN mkdir -p vhosts/drupal7
 RUN mkdir -p vhosts/drupal8
 RUN mkdir -p vhosts/human_factor
+RUN mkdir -p vhosts/symfony
 
 # Add vhosts and enable sites.
 USER root
@@ -97,6 +101,8 @@ ADD vhosts/drupal8.conf /etc/apache2/sites-available/
 RUN a2ensite drupal8
 ADD vhosts/human_factor.conf /etc/apache2/sites-available/
 RUN a2ensite human_factor
+ADD vhosts/symfony.conf /etc/apache2/sites-available/
+RUN a2ensite symfony
 
 RUN service apache2 restart
 

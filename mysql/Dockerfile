@@ -42,7 +42,7 @@ RUN echo "deb https://repo.percona.com/apt xenial main" > /etc/apt/sources.list.
 	} > /etc/apt/preferences.d/percona
 
 ENV MARIADB_MAJOR 10.1
-ENV MARIADB_VERSION 10.1.22+maria-1~xenial
+ENV MARIADB_VERSION 10.1.25+maria-1~xenial
 
 RUN echo "deb http://ftp.cc.uoc.gr/mirrors/mariadb/repo/$MARIADB_MAJOR/ubuntu xenial main" > /etc/apt/sources.list.d/mariadb.list \
 	&& { \
